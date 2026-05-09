@@ -1,1 +1,169 @@
 @import "tailwindcss";
+
+/* ─── RESET ─────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+/* ─── BASE ──────────────────────────────────────── */
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  background: #132A13;
+  color: #F8F3B9;
+  overflow-x: hidden;
+}
+
+/* Override any Tailwind preflight that changes headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'IBM Plex Mono', monospace !important;
+  font-weight: 600 !important;
+  line-height: 1.12 !important;
+  letter-spacing: -0.025em !important;
+  color: #F8F3B9;
+}
+
+p, li, span, td, th, label, button, input {
+  font-family: 'Roboto', sans-serif;
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* ─── SCROLLBAR ──────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #132A13; }
+::-webkit-scrollbar-thumb { background: #90A955; border-radius: 3px; }
+
+/* ─── LAYOUT ─────────────────────────────────────── */
+/* All sections use this wrapper for consistent margins */
+.wrap {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+@media (max-width: 640px) {
+  .wrap { padding-left: 1.5rem; padding-right: 1.5rem; }
+}
+
+/* ─── GRID BG ─────────────────────────────────────── */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(144,169,85,.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(144,169,85,.08) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* ─── DIVIDER ─────────────────────────────────────── */
+.divider-top {
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(144,169,85,.4), transparent);
+}
+
+/* ─── ANIMATIONS ──────────────────────────────────── */
+@keyframes pulseDot {
+  0%,100% { opacity:1; transform:scale(1); }
+  50%      { opacity:.3; transform:scale(.55); }
+}
+.pulse-dot { animation: pulseDot 2.2s ease-in-out infinite; }
+
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(22px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.fu1 { animation: fadeUp .6s  ease both .10s; }
+.fu2 { animation: fadeUp .65s ease both .25s; }
+.fu3 { animation: fadeUp .65s ease both .40s; }
+.fu4 { animation: fadeUp .65s ease both .55s; }
+.fu5 { animation: fadeUp .65s ease both .70s; }
+
+/* ─── BUTTONS ─────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+  font-size: .875rem;
+  letter-spacing: .01em;
+  padding: .75rem 1.75rem;
+  border-radius: 5px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background .18s ease, border-color .18s ease, transform .15s ease, box-shadow .18s ease;
+  text-decoration: none;
+}
+.btn-primary {
+  background: #FCA311;
+  color: #132A13;
+  border-color: #FCA311;
+}
+.btn-primary:hover {
+  background: #e8940a;
+  border-color: #e8940a;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(252,163,17,.4);
+}
+.btn-secondary {
+  background: transparent;
+  color: #F8F3B9;
+  border-color: rgba(248,243,185,.35);
+}
+.btn-secondary:hover {
+  border-color: rgba(248,243,185,.75);
+  background: rgba(248,243,185,.06);
+  transform: translateY(-2px);
+}
+.btn-sm  { font-size: .78rem; padding: .5rem 1.1rem; }
+.btn-lg  { font-size: .975rem; padding: 1rem 2.5rem; }
+
+/* ─── FEATURE CARDS ───────────────────────────────── */
+.fcard {
+  position: relative;
+  overflow: hidden;
+  transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+.fcard::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: #90A955;
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .3s ease;
+}
+.fcard:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,.35); border-color: rgba(144,169,85,.45) !important; }
+.fcard:hover::before { transform: scaleX(1); }
+.fcard-amber::before { background: #FCA311; }
+.fcard-amber:hover   { border-color: rgba(252,163,17,.45) !important; }
+
+/* ─── STEP CARDS ──────────────────────────────────── */
+.scard { transition: transform .2s ease, border-color .2s ease; }
+.scard:hover { transform: translateX(8px); border-color: rgba(144,169,85,.45) !important; }
+
+/* ─── TABLE ───────────────────────────────────────── */
+.crow:hover .ctd      { background: rgba(144,169,85,.06) !important; }
+.crow:hover .ctd-good { color: #FCA311 !important; }
+
+/* ─── RESPONSIVE GRIDS ────────────────────────────── */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem; /* ¡Separación aumentada! */
+}
+@media (max-width: 860px)  { .features-grid { grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 540px)  { .features-grid { grid-template-columns: 1fr; } }
+
+.pain-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px,1fr));
+  gap: .9rem;
+}
+
+.privacy-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+@media (max-width: 768px) { .privacy-grid { grid-template-columns: 1fr; gap: 3rem; } }
