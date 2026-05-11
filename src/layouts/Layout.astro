@@ -4,7 +4,7 @@ import '../styles/global.css';
 interface Props {
   title?: string;
 }
-const { title = 'hi-POS — Tu restaurante, libre de rentas' } = Astro.props;
+const { title = 'Hi-POS — Tu restaurante, libre de rentas' } = Astro.props;
 ---
 
 <!doctype html>
@@ -13,7 +13,10 @@ const { title = 'hi-POS — Tu restaurante, libre de rentas' } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="description" content="hi-POS: Sistema punto de venta para restaurantes. Sin rentas, sin internet, sin sorpresas. Licencia perpetua." />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    
+    <!-- Aquí cambiamos el icono de la pestaña -->
+    <link rel="icon" href="/favicon.svg" />
+    
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Roboto:wght@400;500&display=swap" rel="stylesheet" />

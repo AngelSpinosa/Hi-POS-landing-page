@@ -9,9 +9,12 @@ import Layout from '../layouts/Layout.astro';
 ══════════════════════════════════════════════ -->
 <nav style="position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:rgba(19,42,19,0.92);border-bottom:1px solid rgba(144,169,85,0.2);padding:0 1.5rem;">
   <div class="wrap" style="display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1040px;margin:0 auto;width:100%;">
-    <span style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:1.3rem;color:#F8F3B9;letter-spacing:-0.02em;">
-      hi<span style="color:#FCA311;">-POS</span>
-    </span>
+    
+    <!-- Logo en Navbar -->
+    <a href="/" style="display: flex; align-items: center; text-decoration: none;">
+      <img src="/logo.png" alt="hi-POS Logo" style="height: 36px; width: auto;" />
+    </a>
+
     <a href="#demo" class="btn btn-primary btn-sm">Quiero mi demo</a>
   </div>
 </nav>
@@ -57,7 +60,6 @@ import Layout from '../layouts/Layout.astro';
 
     <!-- Badge -->
     <div class="fu5" style="display:inline-flex;align-items:center;gap:.6rem;background:rgba(144,169,85,.1);border:1px solid rgba(144,169,85,.25);padding:.5rem 1.1rem;border-radius:3px;">
-      <span style="color:#FCA311;font-size:1rem;">⚡</span>
       <span style="font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:#90A955;">Funciona sin internet. Siempre.</span>
     </div>
 
@@ -393,9 +395,10 @@ import Layout from '../layouts/Layout.astro';
 ══════════════════════════════════════════════ -->
 <footer style="background:#0d1f0d;border-top:1px solid rgba(144,169,85,.15);padding:2rem 1.5rem;">
   <div class="wrap" style="max-width:1040px;margin:0 auto;width:100%;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;">
-    <span style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:1.1rem;color:#F8F3B9;">
-      hi<span style="color:#FCA311;">-POS</span>
-    </span>
+    
+    <!-- Logo en Footer -->
+    <img src="/logo.png" alt="hi-POS Logo" style="height: 28px; width: auto; opacity: 0.9;" />
+
     <p style="font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:rgba(248,243,185,.35);">
       Licencia de pago único · Instalación en Windows, Mac y Linux · Soporte incluido
     </p>
