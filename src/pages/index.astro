@@ -36,7 +36,7 @@ import Layout from '../layouts/Layout.astro';
       <span style="font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:#90A955;">Sistema POS · Offline-First · Licencia Perpetua</span>
     </div>
 
-    <!-- Headline (Con espaciado vertical reducido) -->
+    <!-- Headline -->
     <h1 class="fu2" style="font-size:clamp(3rem,7vw,5.5rem);color:#F8F3B9;margin-top:0.2em;margin-bottom:0.4em;line-height:1.1;max-width:700px;">
       Tu restaurante<br/>
       no debería de<br/>
@@ -60,6 +60,7 @@ import Layout from '../layouts/Layout.astro';
 
     <!-- Badge -->
     <div class="fu5" style="display:inline-flex;align-items:center;gap:.6rem;background:rgba(144,169,85,.1);border:1px solid rgba(144,169,85,.25);padding:.5rem 1.1rem;border-radius:3px;">
+      <span style="color:#FCA311;font-size:1rem;">⚡</span>
       <span style="font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:#90A955;">Funciona sin internet. Siempre.</span>
     </div>
 
@@ -108,23 +109,41 @@ import Layout from '../layouts/Layout.astro';
 
 
 <!-- ══════════════════════════════════════════════
-     WHAT IS
+     WHAT IS (AHORA CON CARRUSEL)
 ══════════════════════════════════════════════ -->
 <section style="background:#132A13;padding:8rem 1.5rem;" id="como-funciona">
-  <div class="wrap" style="max-width:1040px;margin:0 auto;width:100%;">
-    <div style="max-width:640px;">
+  <div class="wrap whatis-container" style="max-width:1040px;margin:0 auto;width:100%;">
+    
+    <!-- Columna Izquierda: Texto -->
+    <div class="whatis-text">
       <p style="font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:#90A955;margin-bottom:1.5rem;opacity:.8;">¿Que es Hi-POS?</p>
-      <h2 style="font-size:clamp(2.2rem,5vw,4rem);color:#F8F3B9;margin-bottom:1.5rem;">
+      <h2 style="font-size:clamp(2.2rem,5vw,4rem);color:#F8F3B9;margin-bottom:1.5rem; line-height: 1.1;">
         Un POS completo.<br/>
         Una sola vez.<br/>
         <span style="color:#FCA311;">Sin rentas.</span>
       </h2>
-      <p style="font-size:1.05rem;color:rgba(248,243,185,.65);line-height:1.8;max-width:520px;">
+      <p style="font-size:1.05rem;color:rgba(248,243,185,.65);line-height:1.8;">
         hi-POS es el sistema punto de venta para restaurantes y pizzerías que vive en tu
         máquina, no en la nube de alguien más. Pagas una licencia, lo instalas y es tuyo para
         siempre.
       </p>
     </div>
+
+    <!-- Columna Derecha: Carrusel de imágenes -->
+    <div class="whatis-visual">
+      <div class="carousel-wrapper">
+        <div class="carousel-track">
+          <!-- Imágenes de la carpeta public/capturasApp/ -->
+          <img src="/capturasApp/MenuPrincipal.png" alt="Captura de hi-POS 1" class="carousel-img" loading="lazy" />
+          <img src="/capturasApp/Detalleventa.png" alt="Captura de hi-POS 2" class="carousel-img" loading="lazy" />
+          <img src="/capturasApp/Reportesdiarios.png" alt="Captura de hi-POS 3" class="carousel-img" loading="lazy" />
+        </div>
+      </div>
+      <p style="text-align: center; margin-top: 0.8rem; font-size: 0.8rem; color: rgba(248,243,185,.4); font-family: 'Roboto', sans-serif;">
+        <span style="display:inline-block; transform:translateX(-4px);">←</span> Desliza para ver más <span style="display:inline-block; transform:translateX(4px);">→</span>
+      </p>
+    </div>
+
   </div>
 </section>
 
@@ -383,7 +402,7 @@ import Layout from '../layouts/Layout.astro';
         <p style="font-size:1.05rem;color:rgba(248,243,185,.6);margin-bottom:2.5rem;max-width:420px;margin-left:auto;margin-right:auto;line-height:1.7;">
           Pídenos una demo, te mostramos todo en vivo. Sin presiones, sin letra chica.
         </p>
-        <a href="mailto:demo@hi-pos.mx" class="btn btn-primary btn-lg">Quiero mi demo gratis</a>
+        <a href="https://wa.me/2741413755?text=Hola,%20me%20gustaría%20agendar%20una%20demo%20gratis%20para%20conocer%20hi-POS." target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg">Quiero mi demo gratis</a>
       </div>
     </div>
   </div>
@@ -406,3 +425,51 @@ import Layout from '../layouts/Layout.astro';
 </footer>
 
 </Layout>
+
+<!-- ESTILOS ESPECÍFICOS PARA EL CARRUSEL EN ESTA PÁGINA -->
+<style>
+  .whatis-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .carousel-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 12px;
+    border: 1px solid rgba(144, 169, 85, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    background: #0d1f0d;
+  }
+
+  .carousel-track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none; /* Oculta barra de scroll en Firefox */
+    -ms-overflow-style: none; /* Oculta barra en IE/Edge */
+  }
+
+  .carousel-track::-webkit-scrollbar {
+    display: none; /* Oculta barra de scroll en Chrome/Safari */
+  }
+
+  .carousel-img {
+    width: 100%;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    object-fit: cover;
+    aspect-ratio: 16/9; /* Mantiene la proporción de tus capturas */
+  }
+
+  /* Para móviles: el texto va arriba y el carrusel abajo */
+  @media (max-width: 860px) {
+    .whatis-container {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+  }
+</style>
