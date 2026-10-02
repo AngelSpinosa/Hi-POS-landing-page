@@ -1,0 +1,39 @@
+---
+// current="home" | "descargas"
+const { current = 'home' } = Astro.props;
+---
+
+<nav style="position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:rgba(19,42,19,0.92);border-bottom:1px solid rgba(144,169,85,0.2);">
+  <div class="wrap" style="display:flex;align-items:center;justify-content:space-between;height:64px;">
+    <a href="/" style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:1.3rem;color:#F8F3B9;letter-spacing:-0.02em;">
+      hi<span style="color:#FCA311;">-POS</span>
+    </a>
+
+    <div style="display:flex;align-items:center;gap:1.5rem;">
+      {current === 'home' ? (
+        <>
+          <a href="/descargas" class="nav-link">Descargas</a>
+          <a href="#demo" class="btn btn-primary btn-sm">Quiero mi demo</a>
+        </>
+      ) : (
+        <>
+          <a href="/#demo" class="nav-link">Agendar demo</a>
+          <a href="/descargas" class="btn btn-primary btn-sm" aria-current="page">Descargas</a>
+        </>
+      )}
+    </div>
+  </div>
+</nav>
+
+<style>
+  .nav-link {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .78rem;
+    font-weight: 600;
+    color: #F8F3B9;
+    opacity: .85;
+    transition: opacity .15s ease;
+  }
+  .nav-link:hover { opacity: 1; }
+  @media (max-width: 420px) { .nav-link { display: none; } }
+</style>

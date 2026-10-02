@@ -1,20 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
 ---
 
 <Layout>
-
-<!-- ══════════════════════════════════════════════
-     NAV
-══════════════════════════════════════════════ -->
-<nav style="position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:rgba(19,42,19,0.92);border-bottom:1px solid rgba(144,169,85,0.2);">
-  <div class="wrap" style="display:flex;align-items:center;justify-content:space-between;height:64px;">
-    <span style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:1.3rem;color:#F8F3B9;letter-spacing:-0.02em;">
-      hi<span style="color:#FCA311;">-POS</span>
-    </span>
-    <a href="#demo" class="btn btn-primary btn-sm">Quiero mi demo</a>
-  </div>
-</nav>
+<Nav current="home" />
 
 
 <!-- ══════════════════════════════════════════════

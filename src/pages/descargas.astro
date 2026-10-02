@@ -1,0 +1,135 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+
+// ⚠️ Cambia esto por el repositorio donde publicarás los releases
+const GITHUB_REPO = 'AngelSpinosa/hipos-releases';
+
+const platforms = [
+  { id: 'windows', label: 'Windows' },
+  { id: 'linux',   label: 'Linux' },
+  { id: 'mac',     label: 'Mac' },
+];
+---
+
+<Layout title="Descargar hi-POS">
+  <Nav current="descargas" />
+
+  <main
+    class="grid-bg"
+    style="min-height:100vh;background-color:#132A13;padding:calc(64px + 4rem) 0 6rem;"
+    id="downloads"
+    data-repo={GITHUB_REPO}
+  >
+    <div class="wrap" style="max-width:820px;">
+      <h1 style="font-size:clamp(1.9rem,4vw,2.5rem);text-align:center;margin-bottom:2.5rem;">
+        Descarga hi-POS
+      </h1>
+
+      {platforms.map((p) => (
+        <section style="margin-bottom:1.5rem;" data-platform={p.id}>
+          <h2 class="os-title">{p.label}</h2>
+          <div class="dl-card">
+            <span class="dl-version" data-version>···</span>
+            <a class="btn btn-primary dl-btn" data-link href="#" aria-disabled="true">
+              Descargar
+            </a>
+          </div>
+        </section>
+      ))}
+
+      <p id="dl-note" class="dl-note" hidden></p>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .os-title {
+    font-size: 1.35rem;
+    margin-bottom: .6rem;
+    padding-left: .5rem;
+  }
+  .dl-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.25rem 1.25rem 1.25rem 1.4rem;
+    border: 1px solid rgba(248, 243, 185, .65);
+    border-radius: 16px;
+    background: rgba(19, 42, 19, .6);
+  }
+  .dl-version {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #F8F3B9;
+  }
+  .dl-btn {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    padding: .5rem 1rem;
+  }
+  .dl-btn[aria-disabled='true'] {
+    opacity: .4;
+    pointer-events: none;
+  }
+  .dl-note {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: .9rem;
+    color: rgba(248, 243, 185, .65);
+  }
+  .dl-note a { color: #FCA311; text-decoration: underline; }
+</style>
+
+<script>
+  // Qué archivo del release corresponde a cada sistema (por extensión)
+  const MATCHERS: Record<string, RegExp> = {
+    windows: /\.(exe|msi)$/i,
+    linux:   /\.(appimage|deb|rpm)$/i,
+    mac:     /\.(dmg|pkg)$/i,
+  };
+
+  const root = document.getElementById('downloads') as HTMLElement;
+  const repo = root.dataset.repo!;
+  const note = document.getElementById('dl-note') as HTMLElement;
+  const releasesUrl = `https://github.com/${repo}/releases`;
+
+  function showNote(html: string) {
+    note.innerHTML = html;
+    note.hidden = false;
+  }
+
+  async function load() {
+    try {
+      const res = await fetch(`https://api.github.com/repos/${repo}/releases/latest`, {
+        headers: { Accept: 'application/vnd.github+json' },
+      });
+      if (!res.ok) throw new Error(String(res.status));
+      const release = await res.json();
+      const assets: { name: string; browser_download_url: string }[] = release.assets ?? [];
+      const version = release.tag_name ?? '';
+
+      document.querySelectorAll<HTMLElement>('[data-platform]').forEach((section) => {
+        const id = section.dataset.platform!;
+        const label = section.querySelector<HTMLElement>('[data-version]')!;
+        const link = section.querySelector<HTMLAnchorElement>('[data-link]')!;
+        const asset = assets.find((a) => MATCHERS[id].test(a.name));
+
+        if (asset) {
+          label.textContent = version;
+          link.href = asset.browser_download_url;
+          link.removeAttribute('aria-disabled');
+        } else {
+          label.textContent = 'Próximamente';
+        }
+      });
+    } catch {
+      document.querySelectorAll<HTMLElement>('[data-version]').forEach((el) => (el.textContent = 'No disponible'));
+      showNote(`No pudimos cargar las versiones. Puedes verlas directamente en <a href="${releasesUrl}">GitHub</a>.`);
+    }
+  }
+
+  load();
+</script>
